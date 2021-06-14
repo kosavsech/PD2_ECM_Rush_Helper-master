@@ -1,0 +1,72 @@
+{
+	"ecm_rush_helper_menu_title": "ECM Rush助手",
+	"ecm_rush_helper_menu_desc": "消息格式：[消息前缀]：[剩余时间数][剩余时间消息]，[下一位玩家ID/耗尽提示][次序消息/耗尽提示]\n例如：[ECM]：[3][秒后]，[<PRTS>][请放置ECM] ；或者：[ECM]：[3][秒后]，[最后一台设备即将耗尽]",
+
+	"ecm_rush_helper_pecm_title": "便携式ECM",
+	"ecm_rush_helper_pecm_desc": "",
+
+	"ecm_rush_helper_ecm_title": "ECM",
+	"ecm_rush_helper_ecm_desc": "",
+
+	"helper_mode_title" : "广播对象",
+	"helper_mode_desc" : "选择消息广播的对象",
+
+	"erh_reciever_all" : "所有人",
+	"erh_reciever_peer" : "轮到的玩家",
+	"erh_reciever_me" : "只有我",
+	"erh_reciever_off" : "不广播",
+
+	"prefix_title" : "消息前缀(ECM)",
+	"prefix_desc" : "设置ECM消息前缀",
+
+	"ecm_low_time_title" : "消息发送时间（ECM）",
+	"ecm_low_time_desc" : "设置距离ECM干扰结束多久时广播消息",
+
+	"pprefix_title" : "消息前缀（便携式ECM）",
+	"pprefix_desc" : "设置便携式ECM消息前缀",
+
+	"ecm_plow_time_title" : "消息发送时间（便携式ECM）",
+	"ecm_plow_time_desc" : "设置距离便携式ECM干扰结束多久时广播消息",
+
+	"message_title" : "剩余时间消息",
+	"message_desc" : "设置剩余时间消息后缀",
+
+	"ECM_queue_message_title" : "次序消息（ECM）",
+	"ECM_queue_message_desc" : "编辑消息",
+
+	"pECM_queue_message_title" : "次序消息（便携式ECM）",
+	"pECM_queue_message_desc" : "编辑消息",
+
+	"pECMs_players_req_title" : "玩家数量",
+	"pECMs_players_req_desc" : "设置拥有便携式ECM的玩家的数量",
+
+	"pECMs_pockets_req_title" : "库存数量",
+	"pECMs_pockets_req_desc" : "设置拥有便携式ECM的玩家中便携式ECM的数量",
+
+	"pECM_collected_message_title" : "选中消息",
+	"pECM_collected_message_desc" : "编辑下一位被选中玩家的消息",
+
+	"erh_ecm_switcher_title" : "ECM消息",
+	"erh_ecm_switcher_desc" : "勾选以开启消息广播",
+	
+	"erh_pecm_switcher_title" : "便携式ECM消息",
+	"erh_pecm_switcher_desc" : "勾选以开启消息广播",
+	
+	"ecm_placed_toggle_title" : "ECM部署消息",
+	"ecm_placed_toggle_desc" : "勾选以开启消息广播",
+	
+	"pecm_used_toggle_title" : "便携式ECM启用消息",
+	"pecm_used_toggle_desc" : "勾选以开启消息广播",
+	
+	"ecm_placed_title" : "部署消息",
+	"ecm_placed_desc" : "",
+	
+	"pecm_used_title" : "启用消息",
+	"pecm_used_desc" : "",
+
+	"last_device_title" : "耗尽提示",
+	"last_device_desc" : "修改最后一台设备时发送的消息",
+
+	"erh_options_reset_title" : "恢复默认",
+	"erh_options_reset_desc" : "不推荐在劫案进行时使用"
+}

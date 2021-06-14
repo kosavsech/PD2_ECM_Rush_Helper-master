@@ -1,0 +1,64 @@
+{
+	"blt_version"  :  2,
+	"name"  :  "ECM Rush Helper",
+	"description"  :  "",
+	"author"  :  "KXSAVS3CH",
+	"image" : "erh.dds",
+	"color" : "171 39 79",
+	"contact"  :  "\n https://modworkshop.net/user/74917 \n https://steamcommunity.com/id/kosavsechindabuilding/",
+	"version" : "3.3",
+	"hooks" : [
+		{
+			"hook_id" : "lib/managers/hudmanager",
+			"script_path" : "lua/menumanager.lua"
+		},
+		{
+			"hook_id": "lib/managers/menumanager",
+			"script_path": "lua/menumanager.lua"
+		},
+		{
+			"hook_id": "lib/units/equipment/ecm_jammer/ecmjammerbase",
+			"script_path": "lua/erh_ECM.lua"
+		},
+		{
+			"hook_id": "lib/managers/playermanager",
+			"script_path": "lua/erh_ECM.lua"
+		},
+		{
+			"hook_id" : "lib/network/handlers/unitnetworkhandler", 
+			"script_path" : "lua/erh_ECM.lua"
+		},
+		{
+			"hook_id": "lib/managers/playermanager",
+			"script_path": "lua/erh_pECM.lua"
+		},
+		{
+			"hook_id": "lib/units/beings/player/playerinventory",
+			"script_path": "lua/erh_pECM.lua"
+		},
+		{
+			"hook_id": "lib/managers/hudmanager",
+			"script_path": "lua/erh_pECM.lua"
+		},
+		{
+			"hook_id" : "lib/network/handlers/unitnetworkhandler", 
+			"script_path" : "lua/erh_pECM.lua"
+		},
+		{
+			"hook_id" : "lib/network/base/clientnetworksession",
+			"script_path" : "lua/Sync.lua"
+		},
+		{
+			"hook_id" : "lib/network/base/hostnetworksession",
+			"script_path" : "lua/Sync.lua"
+		}
+	],
+	"updates" : [
+		{
+			"identifier" : "pd2_ECM_Rush_Helper",
+			"host": {
+			"meta": "https://github.com/kosavsech/PD2_ECM_Rush_Helper-master/releases/download/refs%2Fheads%2Fmaster/meta.json"
+			}
+		}
+	]
+}

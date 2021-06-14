@@ -1,0 +1,55 @@
+{
+	"menu_id": "ecm_rush_helper_menu",
+	"parent_menu_id": "blt_options",
+	"title": "ecm_rush_helper_menu_title",
+	"description": "ecm_rush_helper_menu_desc",
+	"focus_changed_callback": "ERHChangedFocus",
+	"back_callback" : "ecm_rush_helper_save",
+	"items": [
+		{
+			"type": "button",
+			"id": "erh_button_reset",
+			"title": "erh_options_reset_title",
+			"description": "erh_options_reset_desc",
+			"callback": "callback_erh_reset"
+		},
+		{
+			"type": "divider",
+			"size": 24
+		},
+		{
+			"type" : "multiple_choice",
+			"id" : "helper_mode",
+			"title" : "helper_mode_title",
+			"description" : "helper_mode_desc",
+			"callback" : "callback_Helper_Mode",
+			"items" : [
+				"erh_reciever_all",
+				"erh_reciever_peer",
+				"erh_reciever_me",
+				"erh_reciever_off"
+			],
+			"value" : "reciever"
+		},
+		{
+			"type": "input",
+			"id": "message_input",
+			"title": "message_title",
+			"description": "message_desc",
+			"callback": "callback_message_input",
+			"value": "message"
+		},
+		{
+			"type": "input",
+			"id": "last_device_input",
+			"title": "last_device_title",
+			"description": "last_device_desc",
+			"callback": "callback_last_device_input",
+			"value": "full_end"
+		},
+		{
+			"type": "divider",
+			"size": 24
+		}
+	]
+}

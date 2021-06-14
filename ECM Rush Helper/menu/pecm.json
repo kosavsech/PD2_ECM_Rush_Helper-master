@@ -1,0 +1,99 @@
+{
+	"menu_id": "ecm_rush_helper_pecm",
+	"parent_menu_id": "ecm_rush_helper_menu",
+	"title": "ecm_rush_helper_pecm_title",
+	"description": "ecm_rush_helper_pecm_desc",
+	"focus_changed_callback": "ERHChangedFocus",
+	"back_callback" : "ecm_rush_helper_save",
+	"items": [
+		{
+			"type" : "toggle",
+			"id" : "erh_pecm_switcher",
+			"title" : "erh_pecm_switcher_title",
+			"description" : "erh_pecm_switcher_desc",
+			"callback" : "erh_pecm_switcher_callback",
+			"value" : "pecm_toggle"
+		},
+		{
+			"type": "input",
+			"id": "pprefix_input",
+			"title": "pprefix_title",
+			"description": "pprefix_desc",
+			"callback": "callback_pprefix_input",
+			"value": "pprefix"
+		},
+		{
+			"type": "slider",
+			"id": "ecm_plow_time",
+			"title": "ecm_plow_time_title",
+			"description": "ecm_plow_time_desc",
+			"callback": "callback_ecm_plow_time",
+			"value": "plow_time",
+			"min": 0.5,
+			"max": 5,
+			"step": 0.5
+		},
+		{
+			"type": "input",
+			"id": "pECM_queue_message_input",
+			"title": "pECM_queue_message_title",
+			"description": "pECM_queue_message_desc",
+			"callback": "callback_pECM_queue_message_input",
+			"value": "pECM_queue_message"
+		},
+		{
+			"type": "divider",
+			"size": 16
+		},
+		{
+			"type": "slider",
+			"id": "pECMs_players_w_pockets",
+			"title": "pECMs_players_req_title",
+			"description": "pECMs_players_req_desc",
+			"callback": "callback_pECMs_players_w_pockets",
+			"value": "pECMs_players_req",
+			"min": 0,
+			"max": 4,
+			"step": 1
+		},
+		{
+			"type": "slider",
+			"id": "pECMs_pockets",
+			"title": "pECMs_pockets_req_title",
+			"description": "pECMs_pockets_req_desc",
+			"callback": "callback_pECMs_pockets_w_pockets",
+			"value": "pECMs_amount_req",
+			"min": 1,
+			"max": 2,
+			"step": 1
+		},
+		{
+			"type": "input",
+			"id": "pECM_collected_message_input",
+			"title": "pECM_collected_message_title",
+			"description": "pECM_collected_message_desc",
+			"callback": "callback_pECM_collected_message_input",
+			"value": "pECM_collected"
+		},
+		{
+			"type": "divider",
+			"size": 16
+		},
+		{
+			"type" : "toggle",
+			"id" : "pecm_used_switcher",
+			"title" : "pecm_used_toggle_title",
+			"description" : "pecm_used_toggle_desc",
+			"callback" : "pecm_used_toggle_callback",
+			"value" : "pecm_used_toggle"
+		},
+		{
+			"type": "input",
+			"id": "pecm_used_input",
+			"title": "pecm_used_title",
+			"description": "pecm_used_desc",
+			"callback": "callback_pecm_used_input",
+			"value": "pecm_used"
+		}
+	]
+}

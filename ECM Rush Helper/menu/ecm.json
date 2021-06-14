@@ -1,0 +1,65 @@
+{
+	"menu_id": "ecm_rush_helper_ecm",
+	"parent_menu_id": "ecm_rush_helper_menu",
+	"title": "ecm_rush_helper_ecm_title",
+	"description": "ecm_rush_helper_ecm_desc",
+	"focus_changed_callback": "ERHChangedFocus",
+	"back_callback" : "ecm_rush_helper_save",
+	"items": [
+		{
+			"type" : "toggle",
+			"id" : "erh_ecm_switcher",
+			"title" : "erh_ecm_switcher_title",
+			"description" : "erh_ecm_switcher_desc",
+			"callback" : "erh_ecm_switcher_callback",
+			"value" : "ecm_toggle"
+		},
+		{
+			"type": "input",
+			"id": "prefix_input",
+			"title": "prefix_title",
+			"description": "prefix_desc",
+			"callback": "callback_prefix_input",
+			"value": "prefix"
+		},
+		{
+			"type": "slider",
+			"id": "ecm_low_time",
+			"title": "ecm_low_time_title",
+			"description": "ecm_low_time_desc",
+			"callback": "callback_ecm_low_time",
+			"value": "low_time",
+			"min": 2.5,
+			"max": 29,
+			"step": 0.5
+		},
+		{
+			"type": "input",
+			"id": "ECM_queue_message_input",
+			"title": "ECM_queue_message_title",
+			"description": "ECM_queue_message_desc",
+			"callback": "callback_ECM_queue_message_input",
+			"value": "ECM_queue_message"
+		},
+		{
+			"type": "divider",
+			"size": 16
+		},
+		{
+			"type" : "toggle",
+			"id" : "ecm_placed_switcher",
+			"title" : "ecm_placed_toggle_title",
+			"description" : "ecm_placed_toggle_desc",
+			"callback" : "ecm_placed_toggle_callback",
+			"value" : "ecm_placed_toggle"
+		},
+		{
+			"type": "input",
+			"id": "ecm_placed_input",
+			"title": "ecm_placed_title",
+			"description": "ecm_placed_desc",
+			"callback": "callback_ecm_placed_input",
+			"value": "ecm_placed"
+		}
+	]
+}

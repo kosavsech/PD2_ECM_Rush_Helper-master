@@ -1,0 +1,72 @@
+{
+	"ecm_rush_helper_menu_title": "ECM Rush Helper",
+	"ecm_rush_helper_menu_desc": "Message format: [Message Prefix]: [Number of time remaining] [Time Remaining Message], [Next Player ID/Depletion prompt] [Order Message/Depletion prompt]\n For example: [ECM]: [3][seconds later], [<PRTS>] [Please place ECM]; or: [ECM]: [3] [seconds later], [Last device]",
+
+	"ecm_rush_helper_pecm_title": "Pocket ECM",
+	"ecm_rush_helper_pecm_desc": "",
+
+	"ecm_rush_helper_ecm_title": "ECM",
+	"ecm_rush_helper_ecm_desc": "",
+
+	"helper_mode_title" : "Reciever of message",
+	"helper_mode_desc" : "Choose who will get chat message",
+
+	"erh_reciever_all" : "All",
+	"erh_reciever_peer" : "Person whose turn it is",
+	"erh_reciever_me" : "Only me",
+	"erh_reciever_off" : "Nobody",
+
+	"prefix_title" : "ECM message prefix",
+	"prefix_desc" : "Change the ECM message prefix",
+
+	"ecm_low_time_title" : "Time for ECM",
+	"ecm_low_time_desc" : "Time then ECM ending message is sending",
+
+	"pprefix_title" : "Change the pECM message prefix",
+	"pprefix_desc" : "Change the pECM message prefix",
+
+	"ecm_plow_time_title" : "Time for pocket",
+	"ecm_plow_time_desc" : "Time then Pocket ECM ending message is sending",
+
+	"message_title" : "Message after time",
+	"message_desc" : "Change the message after time",
+
+	"ECM_queue_message_title" : "Queue message",
+	"ECM_queue_message_desc" : "Change ECM message after name",
+
+	"pECM_queue_message_title" : "Queue message",
+	"pECM_queue_message_desc" : "Change pECM message after name",
+
+	"pECMs_players_req_title" : "Players Amount",
+	"pECMs_players_req_desc" : "Change amount of players with pockets to start pecm round next",
+
+	"pECMs_pockets_req_title" : "Pockets Amount",
+	"pECMs_pockets_req_desc" : "Change amount of pockets with each of your custom value players to start pecm round next",
+
+	"pECM_collected_message_title" : "Collected pockets",
+	"pECM_collected_message_desc" : "Change pockets collected message",
+
+	"erh_ecm_switcher_title" : "ECM Message",
+	"erh_ecm_switcher_desc" : "On|off",
+
+	"erh_pecm_switcher_title" : "POCKET ECM Message",
+	"erh_pecm_switcher_desc" : "On|off",
+
+	"ecm_placed_toggle_title" : "ECM Placed Message",
+	"ecm_placed_toggle_desc" : "On|off",
+
+	"pecm_used_toggle_title" : "POCKET ECM Used Message",
+	"pecm_used_toggle_desc" : "On|off",
+
+	"ecm_placed_title" : "Message after placing",
+	"ecm_placed_desc" : "",
+
+	"pecm_used_title" : "Message after use",
+	"pecm_used_desc" : "",
+
+	"last_device_title" : "Last device",
+	"last_device_desc" : "CHange last device message",
+
+	"erh_options_reset_title" : "Reset settings",
+	"erh_options_reset_desc" : "not recommended use on heist"
+}

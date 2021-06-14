@@ -1,0 +1,72 @@
+{
+	"ecm_rush_helper_menu_title": "ECM Rush Helper",
+	"ecm_rush_helper_menu_desc": "",
+
+	"ecm_rush_helper_pecm_title": "Карманный ECM",
+	"ecm_rush_helper_pecm_desc": "",
+
+	"ecm_rush_helper_ecm_title": "ECM",
+	"ecm_rush_helper_ecm_desc": "",
+
+	"helper_mode_title" : "Получатель сообщений",
+	"helper_mode_desc" : "Выберите, кто получит сообщение в чате",
+
+	"erh_reciever_all" : "Все",
+	"erh_reciever_peer" : "Игрок, чья очередь",
+	"erh_reciever_me" : "Только я",
+	"erh_reciever_off" : "Никто",
+
+	"prefix_title" : "Префикс ЕСМ сообщения",
+	"prefix_desc" : "Измените префикс сообщения ECM",
+
+	"ecm_low_time_title" : "Время ЕСМ",
+	"ecm_low_time_desc" : "Время когда сообщение об окончании ЕСМ отправляется",
+
+	"pprefix_title" : "Префикс Карманного ЕСМ сообщения",
+	"pprefix_desc" : "Измените префикс сообщения Карманного ECM",
+
+	"ecm_plow_time_title" : "Время карманного ЕСМ",
+	"ecm_plow_time_desc" : "Время когда сообщение об окончании карманного ЕСМ отправляется",
+
+	"message_title" : "Слова после времени",
+	"message_desc" : "Измените слова после времени",
+
+	"ECM_queue_message_title" : "Сообщение об следующем",
+	"ECM_queue_message_desc" : "Измените ЕСМ сообщение после имени",
+
+	"pECM_queue_message_title" : "Сообщение об следующем",
+	"pECM_queue_message_desc" : "Измените карманный ECM сообщение после имени",
+
+	"pECMs_players_req_title" : "Игроки",
+	"pECMs_players_req_desc" : "Измените количество игроков с карманными есм для начала круга с ними",
+
+	"pECMs_pockets_req_title" : "Карманный ЕСМ количество",
+	"pECMs_pockets_req_desc" : "Измените количество карманных есм у игроков для начала круга с покетами",
+
+	"pECM_collected_message_title" : "Собраны карманные есм",
+	"pECM_collected_message_desc" : "Измените pockets collected message",
+
+	"erh_ecm_switcher_title" : "ECM сообщение",
+	"erh_ecm_switcher_desc" : "ВКЛ|ВЫКЛ",
+
+	"erh_pecm_switcher_title" : "Карманный ECM сообщение",
+	"erh_pecm_switcher_desc" : "ВКЛ|ВЫКЛ",
+
+	"ecm_placed_toggle_title" : "ECM сообщение об установке",
+	"ecm_placed_toggle_desc" : "ВКЛ|ВЫКЛ",
+
+	"pecm_used_toggle_title" : "POCKET ECM сообщение об использовании",
+	"pecm_used_toggle_desc" : "ВКЛ|ВЫКЛ",
+
+	"ecm_placed_title" : "Сообщение после установки",
+	"ecm_placed_desc" : "",
+
+	"pecm_used_title" : "Сообщение после использования",
+	"pecm_used_desc" : "",
+
+	"last_device_title" : "Последний девайс",
+	"last_device_desc" : "Измените сообщение о послденем девайсе",
+
+	"erh_options_reset_title" : "Сбросить настройки",
+	"erh_options_reset_desc" : "не рекомендуется использовать на ограблении"
+}
