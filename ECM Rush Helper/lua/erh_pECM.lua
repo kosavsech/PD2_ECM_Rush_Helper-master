@@ -42,15 +42,10 @@ function erh_pecm:is_2_round(peerid)
 end
 
 function erh_pecm:get_next_after(peer_id, device)
-	if device == "pocket" then
-		function has_device(peer_id)
-			return erh_pecm:has_pockets(peer_id)
-		end
-	elseif device == "ecm" then
-		function has_device(peer_id)
-			return erh_pecm:has_ecm(peer_id)
-		end
+	local function has_device(peer_id)
+		return device == "pocket" and erh_pecm:has_pockets(peer_id) or erh_pecm:has_ecm(peer_id)
 	end
+
 	for i, peer in pairs(managers.network:session():all_peers()) do
 		if peer_id < peer._id and has_device(peer._id) then
 			if ecm_rush_helper:DebugEnabled() then
@@ -97,9 +92,9 @@ function erh_pecm:start_pECM_round_after_ECM(peer)
 			ecm_rush_helper:build_recievers()
 			managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.prefix .. ': ' .. ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
 			managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.pprefix .. ': ' .. ecm_rush_helper.settings.pECM_collected)
-			for _, peer in pairs(ecm_rush_helper.recievers) do
-				managers.chat:send_message(1, id, ecm_rush_helper.settings.prefix .. ': ' .. ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
-				managers.chat:send_message(1, id, ecm_rush_helper.settings.pprefix .. ': ' .. ecm_rush_helper.settings.pECM_collected)
+			for _, reciever in pairs(ecm_rush_helper.recievers) do
+				managers.chat:send_message(1, reciever, ecm_rush_helper.settings.prefix .. ': ' .. ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
+				managers.chat:send_message(1, reciever, ecm_rush_helper.settings.pprefix .. ': ' .. ecm_rush_helper.settings.pECM_collected)
 			end
 		elseif ecm_rush_helper.settings.reciever == 2 then
 			managers.chat:send_message(1, peer, ecm_rush_helper.settings.prefix .. ': ' .. ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
@@ -137,8 +132,8 @@ function erh_pecm:pocket_ecm_update(t, dt)
 					if ecm_rush_helper.peer_database[3][peer._id] == "pocket_ecm_jammer" and erh_pecm:less_than_next_peer(peer._id) and erh_pecm.data.msg_done ~= 1 or erh_pecm:has_pockets(peer._id) and erh_pecm:is_2_round(peer._id) and erh_pecm.data.msg_done ~= 1 then
 						if ecm_rush_helper.settings.reciever == 1 then
 							managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.pprefix .. ': ' .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. ", " .. erh_pecm.data.next_pocket_peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
-							for _, peer in pairs(ecm_rush_helper.recievers) do
-								peer:send("send_chat_message", 1, ecm_rush_helper.settings.pprefix .. ': ' .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. ", " .. erh_pecm.data.next_pocket_peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
+							for _, reciever in pairs(ecm_rush_helper.recievers) do
+								reciever:send("send_chat_message", 1, ecm_rush_helper.settings.pprefix .. ': ' .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. ", " .. erh_pecm.data.next_pocket_peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
 							end
 						elseif ecm_rush_helper.settings.reciever == 2 then
 							managers.chat:send_message(1, erh_pecm.data.next_pocket_peer, ecm_rush_helper.settings.pprefix .. ': ' .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. ", " .. erh_pecm.data.next_pocket_peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
@@ -149,8 +144,8 @@ function erh_pecm:pocket_ecm_update(t, dt)
 					elseif not erh_pecm:has_pockets(peer._id) and not erh_pecm.data.next_pocket_peer and erh_pecm:has_ecm(peer._id) and ecm_rush_helper.settings.ecm_toggle and erh_pecm.data.msg_done ~= 1 then
 						if ecm_rush_helper.settings.reciever == 1 then
 							managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.ECM_queue_message)
-							for _, peer in pairs(ecm_rush_helper.recievers) do
-								peer:send("send_chat_message", 1, ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.ECM_queue_message)
+							for _, reciever in pairs(ecm_rush_helper.recievers) do
+								reciever:send("send_chat_message", 1, ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.ECM_queue_message)
 							end
 						elseif ecm_rush_helper.settings.reciever == 2 then
 							managers.chat:send_message(1, peer, ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.ECM_queue_message)
@@ -161,8 +156,8 @@ function erh_pecm:pocket_ecm_update(t, dt)
 					elseif not erh_pecm:has_ecm(peer._id) and not erh_pecm.data.next_ecm_peer and not erh_pecm.data.next_pocket_peer and not erh_pecm:has_pockets(peer._id) and erh_pecm.data.msg_done ~= 1 then
 						if ecm_rush_helper.settings.reciever == 1 then
 							managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. " " .. ecm_rush_helper.settings.full_end) 
-							for _, peer in pairs(ecm_rush_helper.recievers) do
-								peer:send("send_chat_message", 1, ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. " " .. ecm_rush_helper.settings.full_end) 
+							for _, reciever in pairs(ecm_rush_helper.recievers) do
+								reciever:send("send_chat_message", 1, ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. " " .. ecm_rush_helper.settings.full_end) 
 							end
 						elseif ecm_rush_helper.settings.reciever == 2 then
 							managers.chat:send_message(1, peer, ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. " " .. ecm_rush_helper.settings.full_end) 
@@ -183,17 +178,17 @@ if string.lower(RequiredScript) == "lib/units/beings/player/playerinventory" the
 		erh_pecm.data.msg_done = 0
 		erh_pecm.data.pcounter = erh_pecm.data.pcounter + 1
 		if ecm_rush_helper.settings.pecm_used_toggle then
-			local peer = managers.network:session():peer_by_unit(self._unit)
+			local peer_user = managers.network:session():peer_by_unit(self._unit)
 			if ecm_rush_helper.settings.reciever == 1 then
 				ecm_rush_helper:build_recievers()
-				managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.pecm_used.. " " .. peer._name)
-				for _, peer in pairs(ecm_rush_helper.recievers) do
-					peer:send("send_chat_message", 1, ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.pecm_used .. " " .. peer._name)
+				managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.pecm_used.. " " .. peer_user._name)
+				for _, reciever in pairs(ecm_rush_helper.recievers) do
+					reciever:send("send_chat_message", 1, ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.pecm_used .. " " .. peer_user._name)
 				end
 			elseif ecm_rush_helper.settings.reciever == 2 then
-				managers.chat:send_message(1, peer, ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.pecm_used .. " " .. peer._name)
+				managers.chat:send_message(1, peer, ecm_rush_helper.settings.pprefix .. ": " .. ecm_rush_helper.settings.pecm_used .. " " .. peer_user._name)
 			elseif ecm_rush_helper.settings.reciever == 3 then
-				managers.chat:_receive_message(1, ecm_rush_helper.settings.pprefix, ecm_rush_helper.settings.pecm_used .. " " .. peer._name, tweak_data.chat_colors[peer._id])
+				managers.chat:_receive_message(1, ecm_rush_helper.settings.pprefix, ecm_rush_helper.settings.pecm_used .. " " .. peer_user._name, tweak_data.chat_colors[peer_user._id])
 			end
 			if ecm_rush_helper:DebugEnabled() then
 				log("DEBUG pocket peer_id " .. peer._id)

@@ -6,7 +6,7 @@
 	"image" : "erh.dds",
 	"color" : "171 39 79",
 	"contact"  :  "\n https://modworkshop.net/user/74917 \n https://steamcommunity.com/id/kosavsechindabuilding/",
-	"version" : "3.3",
+	"version" : "3.5",
 	"hooks" : [
 		{
 			"hook_id" : "lib/managers/hudmanager",

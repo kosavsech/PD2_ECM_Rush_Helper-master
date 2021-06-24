@@ -20,12 +20,12 @@ elseif string.lower(RequiredScript) == "lib/network/handlers/unitnetworkhandler"
 	Hooks:PostHook(UnitNetworkHandler, "set_unit", "erh_UnitNetworkHandler_set_unit", function(self, unit, character_name, outfit_string, outfit_version, peer_id, team_id, visual_seed)
 		if ecm_rush_helper:DebugEnabled() then
 			log( "[DEBUG] set_unit " .. tostring(outfit_string) )
-			outfit = string.split(outfit_string, " ") or {}
+			local outfit = string.split(outfit_string, " ") or {}
 			for i=1,#outfit do
 				log('[DEBUG] - outfit ' .. i .. ': ' .. outfit[i])
 			end
 		end
-		outfit = string.split(outfit_string, " ") or {}
+		local outfit = string.split(outfit_string, " ") or {}
 		if outfit[13] == "ecm_jammer" then
 			ecm_rush_helper.peer_database[1][peer_id] = "ecm_jammer"
 			ecm_rush_helper.peer_database[2][peer_id] = 1 
@@ -42,17 +42,17 @@ elseif string.lower(RequiredScript) == "lib/units/equipment/ecm_jammer/ecmjammer
 -- host vers
 	Hooks:PostHook(ECMJammerBase, "spawn", "erh_ECMJammerBase_spawn", function(pos, rot, battery_life_upgrade_lvl, owner, peer_id)
 		if ecm_rush_helper.settings.ecm_placed_toggle then
-			local peer = managers.network:session():peer(peer_id)
+			local peer_user = managers.network:session():peer(peer_id)
 			if ecm_rush_helper.settings.reciever == 1 then
 				ecm_rush_helper:build_recievers()
-				managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " ..peer._name)
-				for _, peer in pairs(ecm_rush_helper.recievers) do
-					peer:send("send_chat_message", 1, ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " .. peer._name)
+				managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " ..peer_user._name)
+				for _, reciever in pairs(ecm_rush_helper.recievers) do
+					reciever:send("send_chat_message", 1, ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " .. peer_user._name)
 				end
 			elseif ecm_rush_helper.settings.reciever == 2 then
-				managers.chat:send_message(1, peer, ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " .. peer._name)
+				managers.chat:send_message(1, peer, ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " .. peer_user._name)
 			elseif ecm_rush_helper.settings.reciever == 3 then
-				managers.chat:_receive_message(1, ecm_rush_helper.settings.prefix, ecm_rush_helper.settings.ecm_placed .. " " .. peer._name, tweak_data.chat_colors[peer._id])
+				managers.chat:_receive_message(1, ecm_rush_helper.settings.prefix, ecm_rush_helper.settings.ecm_placed .. " " .. peer_user._name, tweak_data.chat_colors[peer_user._id])
 			end
 			if ecm_rush_helper:DebugEnabled() then
 				log("DEBUG ECM host owner_id " .. peer_id)
@@ -64,17 +64,17 @@ elseif string.lower(RequiredScript) == "lib/units/equipment/ecm_jammer/ecmjammer
 -- client vers
 	Hooks:PostHook(ECMJammerBase, "sync_setup", "erh_ECMJammerBase_sync_setup", function(self, upgrade_lvl, peer_id)
 		if ecm_rush_helper.settings.ecm_placed_toggle then
-			local peer = managers.network:session():peer(peer_id)
+			local peer_user = managers.network:session():peer(peer_id)
 			if ecm_rush_helper.settings.reciever == 1 then
 				ecm_rush_helper:build_recievers()
-				managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " .. peer._name)
-				for _, peer in pairs(ecm_rush_helper.recievers) do
-					peer:send("send_chat_message", 1, ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " .. peer._name)
+				managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " .. peer_user._name)
+				for _, reciever in pairs(ecm_rush_helper.recievers) do
+					reciever:send("send_chat_message", 1, ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " .. peer_user._name)
 				end
 			elseif ecm_rush_helper.settings.reciever == 2 then
-				managers.chat:send_message(1, peer, ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " .. peer._name)
+				managers.chat:send_message(1, peer, ecm_rush_helper.settings.prefix .. ": " .. ecm_rush_helper.settings.ecm_placed .. " " .. peer_user._name)
 			elseif ecm_rush_helper.settings.reciever == 3 then
-				managers.chat:_receive_message(1, ecm_rush_helper.settings.prefix, ecm_rush_helper.settings.ecm_placed .. " " .. peer._name, tweak_data.chat_colors[peer._id])
+				managers.chat:_receive_message(1, ecm_rush_helper.settings.prefix, ecm_rush_helper.settings.ecm_placed .. " " .. peer_user._name, tweak_data.chat_colors[peer_user._id])
 			end
 			if ecm_rush_helper:DebugEnabled() then
 				log("DEBUG ECM sync_setup client owner_id " .. peer_id)
@@ -100,8 +100,8 @@ elseif string.lower(RequiredScript) == "lib/units/equipment/ecm_jammer/ecmjammer
 					elseif erh_pecm:has_ecm(peer._id) and not erh_pecm:got_enough_pockets() and done ~= 1 then
 						if ecm_rush_helper.settings.reciever == 1 then
 							managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.prefix .. ': ' .. ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.ECM_queue_message)
-							for _, peer in pairs(ecm_rush_helper.recievers) do
-								peer:send("send_chat_message", 1, ecm_rush_helper.settings.prefix .. ': ' .. ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.ECM_queue_message)
+							for _, reciever in pairs(ecm_rush_helper.recievers) do
+								reciever:send("send_chat_message", 1, ecm_rush_helper.settings.prefix .. ': ' .. ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.ECM_queue_message)
 							end
 						elseif ecm_rush_helper.settings.reciever == 2 then
 							managers.chat:send_message(1, peer, ecm_rush_helper.settings.prefix .. ': ' .. ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.ECM_queue_message)
@@ -112,8 +112,8 @@ elseif string.lower(RequiredScript) == "lib/units/equipment/ecm_jammer/ecmjammer
 					elseif not erh_pecm:has_ecm(peer._id) and erh_pecm:has_pockets(peer._id) and ecm_rush_helper.settings.pecm_toggle and not erh_pecm:got_enough_pockets() and done ~= 1 then
 						if ecm_rush_helper.settings.reciever == 1 then
 							managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.prefix ..": " .. ecm_rush_helper.settings.low_time .. " " ..ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.pECM_queue_message)
-							for _, peer in pairs(ecm_rush_helper.recievers) do
-								peer:send("send_chat_message", 1, ecm_rush_helper.settings.prefix ..": " .. ecm_rush_helper.settings.low_time .. " " ..ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.pECM_queue_message)
+							for _, reciever in pairs(ecm_rush_helper.recievers) do
+								reciever:send("send_chat_message", 1, ecm_rush_helper.settings.prefix ..": " .. ecm_rush_helper.settings.low_time .. " " ..ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.pECM_queue_message)
 							end
 						elseif ecm_rush_helper.settings.reciever == 2 then
 							managers.chat:send_message(1, peer, ecm_rush_helper.settings.prefix ..": " .. ecm_rush_helper.settings.low_time .. " " ..ecm_rush_helper.settings.message .. ", " .. peer._name .. " " .. ecm_rush_helper.settings.pECM_queue_message)
@@ -124,8 +124,8 @@ elseif string.lower(RequiredScript) == "lib/units/equipment/ecm_jammer/ecmjammer
 					elseif not erh_pecm:has_ecm(peer._id) and not erh_pecm.data.next_ecm_peer and not erh_pecm.data.next_pocket_peer and not erh_pecm:has_pockets(peer._id) and not erh_pecm:got_enough_pockets() and done ~= 1 then
 						if ecm_rush_helper.settings.reciever == 1 then
 							managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.prefix ..": " .. ecm_rush_helper.settings.low_time .. " " ..ecm_rush_helper.settings.message .. " " .. ecm_rush_helper.settings.full_end)
-							for _, peer in pairs(ecm_rush_helper.recievers) do
-								peer:send("send_chat_message", 1, ecm_rush_helper.settings.prefix ..": " .. ecm_rush_helper.settings.low_time .. " " ..ecm_rush_helper.settings.message .. " " .. ecm_rush_helper.settings.full_end)
+							for _, reciever in pairs(ecm_rush_helper.recievers) do
+								reciever:send("send_chat_message", 1, ecm_rush_helper.settings.prefix ..": " .. ecm_rush_helper.settings.low_time .. " " ..ecm_rush_helper.settings.message .. " " .. ecm_rush_helper.settings.full_end)
 							end
 						elseif ecm_rush_helper.settings.reciever == 2 then
 							managers.chat:send_message(1, peer, ecm_rush_helper.settings.prefix ..": " .. ecm_rush_helper.settings.low_time .. " " ..ecm_rush_helper.settings.message .. " " .. ecm_rush_helper.settings.full_end)
