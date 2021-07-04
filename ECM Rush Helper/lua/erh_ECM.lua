@@ -55,8 +55,8 @@ elseif string.lower(RequiredScript) == "lib/units/equipment/ecm_jammer/ecmjammer
 				managers.chat:_receive_message(1, ecm_rush_helper.settings.prefix, ecm_rush_helper.settings.ecm_placed .. " " .. peer_user._name, tweak_data.chat_colors[peer_user._id])
 			end
 			if ecm_rush_helper:DebugEnabled() then
-				log("DEBUG ECM host owner_id " .. peer_id)
-				managers.mission._fading_debug_output:script().log(string.format("DEBUG ECM host owner_id " .. peer_id), Color.red)
+				log("DEBUG ECM host owner_id " .. peer_user._id)
+				managers.mission._fading_debug_output:script().log(string.format("DEBUG ECM host owner_id " .. peer_user._id), Color.red)
 			end
 		end
 	end)
@@ -77,8 +77,8 @@ elseif string.lower(RequiredScript) == "lib/units/equipment/ecm_jammer/ecmjammer
 				managers.chat:_receive_message(1, ecm_rush_helper.settings.prefix, ecm_rush_helper.settings.ecm_placed .. " " .. peer_user._name, tweak_data.chat_colors[peer_user._id])
 			end
 			if ecm_rush_helper:DebugEnabled() then
-				log("DEBUG ECM sync_setup client owner_id " .. peer_id)
-				managers.mission._fading_debug_output:script().log(string.format("DEBUG ECM sync_setup client owner_id " .. peer_id), Color.blue)
+				log("DEBUG ECM sync_setup client owner_id " .. peer_user._id)
+				managers.mission._fading_debug_output:script().log(string.format("DEBUG ECM sync_setup client owner_id " .. peer_user._id), Color.blue)
 			end
 		end
 	end)

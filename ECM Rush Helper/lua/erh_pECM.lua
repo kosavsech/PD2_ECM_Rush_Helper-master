@@ -22,8 +22,14 @@ function erh_pecm:has_ecm(peerid)
 end
 
 function erh_pecm:less_than_next_peer(peerid)
-	if not erh_pecm.data.next_pocket_peer then
+	if not erh_pecm.data.next_pocket_peer or erh_pecm.data.next_pocket_peer._id == peerid then
+		if ecm_rush_helper:DebugEnabled() then
+			log("DEBUG not erh_pecm.data.next_pocket_peer")
+		end
 		return false
+	end
+	if ecm_rush_helper:DebugEnabled() then
+		log("DEBUG attempt to compare number with string " .. tostring(ecm_rush_helper.peer_database[4][peerid]) .. " " .. tostring(ecm_rush_helper.peer_database[4][erh_pecm.data.next_pocket_peer._id]))
 	end
 	if ecm_rush_helper.peer_database[4][peerid] < ecm_rush_helper.peer_database[4][erh_pecm.data.next_pocket_peer._id] then
 		return true
@@ -70,7 +76,6 @@ function erh_pecm:get_next_after(peer_id, device)
 			return peer
 		end
 	end
-	return nil
 end
 
 function erh_pecm:got_enough_pockets()
@@ -127,9 +132,9 @@ function erh_pecm:pocket_ecm_update(t, dt)
 					ecm_rush_helper:build_recievers()
 				end
 				for i, peer in pairs(managers.network:session():all_peers()) do
-					erh_pecm.data.next_pocket_peer = erh_pecm:get_next_after(peer._id, "pocket")
-					erh_pecm.data.next_ecm_peer = erh_pecm:get_next_after(peer._id, "ecm")
-					if ecm_rush_helper.peer_database[3][peer._id] == "pocket_ecm_jammer" and erh_pecm:less_than_next_peer(peer._id) and erh_pecm.data.msg_done ~= 1 or erh_pecm:has_pockets(peer._id) and erh_pecm:is_2_round(peer._id) and erh_pecm.data.msg_done ~= 1 then
+					erh_pecm.data.next_pocket_peer = erh_pecm:get_next_after(peer._id, "pocket") or nil
+					erh_pecm.data.next_ecm_peer = erh_pecm:get_next_after(peer._id, "ecm") or nil
+					if ecm_rush_helper.peer_database[3][peer._id] == "pocket_ecm_jammer" and erh_pecm:less_than_next_peer(peer._id) and erh_pecm.data.next_pocket_peer and erh_pecm.data.msg_done ~= 1 or erh_pecm:has_pockets(peer._id) and erh_pecm:is_2_round(peer._id) and erh_pecm.data.next_pocket_peer and erh_pecm.data.msg_done ~= 1 then
 						if ecm_rush_helper.settings.reciever == 1 then
 							managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.pprefix .. ': ' .. ecm_rush_helper.settings.plow_time .. " " .. ecm_rush_helper.settings.message .. ", " .. erh_pecm.data.next_pocket_peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
 							for _, reciever in pairs(ecm_rush_helper.recievers) do
@@ -191,8 +196,8 @@ if string.lower(RequiredScript) == "lib/units/beings/player/playerinventory" the
 				managers.chat:_receive_message(1, ecm_rush_helper.settings.pprefix, ecm_rush_helper.settings.pecm_used .. " " .. peer_user._name, tweak_data.chat_colors[peer_user._id])
 			end
 			if ecm_rush_helper:DebugEnabled() then
-				log("DEBUG pocket peer_id " .. peer._id)
-				managers.mission._fading_debug_output:script().log(string.format("DEBUG pocket peer_id " .. peer._id), Color.red)
+				log("DEBUG pocket peer_id " .. peer_user._id)
+				managers.mission._fading_debug_output:script().log(string.format("DEBUG pocket peer_id " .. peer_user._id), Color.red)
 			end
 		end
 	end)
