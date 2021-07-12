@@ -31,6 +31,10 @@ ecm_rush_helper.modded_peers = {
 	{nil, nil, nil, nil}, -- is modded
 	{nil, nil, nil, nil} -- config
 }
+ecm_rush_helper.data = {
+	next_pocket_peer = nil,
+	next_ecm_peer = nil
+}
 
 function ecm_rush_helper:DebugEnabled()
 	return false
@@ -77,6 +81,85 @@ function ecm_rush_helper:build_recievers()
 	end
 end
 
+function ecm_rush_helper:has_ecm(peerid)
+	if ecm_rush_helper.peer_database[1][peerid] == "ecm_jammer" and ecm_rush_helper.peer_database[2][peerid] ~= 0 and managers.network:session():peer(peerid):unit():base():upgrade_value("ecm_jammer", "affects_pagers") then
+		return true
+	end
+	return false
+end
+
+function ecm_rush_helper:has_pockets(peerid)
+	if ecm_rush_helper.peer_database[3][peerid] == "pocket_ecm_jammer" and ecm_rush_helper.peer_database[4][peerid] ~= 0 then
+		return true
+	end
+	return false
+end
+
+function ecm_rush_helper:get_next_after(peer_id, device)
+	local function has_device(peer_id)
+		return device == "pocket" and ecm_rush_helper:has_pockets(peer_id) or ecm_rush_helper:has_ecm(peer_id)
+	end
+
+	for i, peer in pairs(managers.network:session():all_peers()) do
+		if peer_id < peer._id and has_device(peer._id) then
+			if ecm_rush_helper:DebugEnabled() then
+				log("DEBUG get_next_after " ..  peer_id .. " < is ".. peer._id)
+			end
+			return peer
+		end
+	end
+	for i, peer in pairs(managers.network:session():all_peers()) do
+		if peer_id > peer._id and has_device(peer._id) then
+			if ecm_rush_helper:DebugEnabled() then
+				log("DEBUG get_next_after " ..  peer_id .. " > is ".. peer._id)
+			end
+			return peer
+		end
+	end
+	for i, peer in pairs(managers.network:session():all_peers()) do
+		if peer_id == peer._id and has_device(peer._id) then
+			if ecm_rush_helper:DebugEnabled() then
+				log("DEBUG get_next_after " ..  peer_id .. " == is ".. peer._id)
+			end
+			return peer
+		end
+	end
+end
+
+function ecm_rush_helper:got_enough_pockets()
+	local players_with_pecm = 0 
+	for peer_id, grenade in pairs(ecm_rush_helper.peer_database[3]) do
+		if grenade == "pocket_ecm_jammer" and ecm_rush_helper.peer_database[4][peer_id] >= ecm_rush_helper.settings.pECMs_amount_req then
+			players_with_pecm = players_with_pecm + 1
+		end
+	end
+	if players_with_pecm >= ecm_rush_helper.settings.pECMs_players_req then
+		return true
+	end
+	return false
+end
+
+function ecm_rush_helper:start_pECM_round_after_ECM(peer)
+	if erh_pecm.data.msg_done ~= 1 then
+		if ecm_rush_helper.settings.reciever == 1 then
+			ecm_rush_helper:build_recievers()
+			managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.prefix .. ': ' .. ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
+			managers.chat:receive_message_by_peer(1, managers.network:session():local_peer(), ecm_rush_helper.settings.pprefix .. ': ' .. ecm_rush_helper.settings.pECM_collected)
+			for _, reciever in pairs(ecm_rush_helper.recievers) do
+				managers.chat:send_message(1, reciever, ecm_rush_helper.settings.prefix .. ': ' .. ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
+				managers.chat:send_message(1, reciever, ecm_rush_helper.settings.pprefix .. ': ' .. ecm_rush_helper.settings.pECM_collected)
+			end
+		elseif ecm_rush_helper.settings.reciever == 2 then
+			managers.chat:send_message(1, peer, ecm_rush_helper.settings.prefix .. ': ' .. ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message)
+			managers.chat:send_message(1, peer, ecm_rush_helper.settings.pprefix .. ': ' .. ecm_rush_helper.settings.pECM_collected)
+		elseif ecm_rush_helper.settings.reciever == 3 then
+			managers.chat:_receive_message(1, ecm_rush_helper.settings.prefix, ecm_rush_helper.settings.low_time .. " " .. ecm_rush_helper.settings.message .. ", " .. peer._name .. " " ..  ecm_rush_helper.settings.pECM_queue_message, tweak_data.chat_colors[peer._id])
+			managers.chat:_receive_message(1, ecm_rush_helper.settings.pprefix, ecm_rush_helper.settings.pECM_collected, tweak_data.chat_colors[peer._id])
+		end
+		erh_pecm.data.msg_done = 1
+	end
+end
+
 function ecm_rush_helper:load()
 	local file = io.open(self.data_path,"r")
 	if file then
@@ -95,7 +178,6 @@ function ecm_rush_helper:save()
 	end
 end
 
-ecm_rush_helper:load()
 
 Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInit_ecm_rush_helper", function( loc )
 	if file.DirectoryExists(ecm_rush_helper._path .. "loc/") then

@@ -26,8 +26,7 @@
 			"items" : [
 				"erh_reciever_all",
 				"erh_reciever_peer",
-				"erh_reciever_me",
-				"erh_reciever_off"
+				"erh_reciever_me"
 			],
 			"value" : "reciever"
 		},

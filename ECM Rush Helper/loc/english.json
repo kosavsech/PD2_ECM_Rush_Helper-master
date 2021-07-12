@@ -14,7 +14,6 @@
 	"erh_reciever_all" : "All",
 	"erh_reciever_peer" : "Person whose turn it is",
 	"erh_reciever_me" : "Only me",
-	"erh_reciever_off" : "Nobody",
 
 	"prefix_title" : "ECM message prefix",
 	"prefix_desc" : "Change the ECM message prefix",

@@ -14,7 +14,6 @@
 	"erh_reciever_all" : "Все",
 	"erh_reciever_peer" : "Игрок, чья очередь",
 	"erh_reciever_me" : "Только я",
-	"erh_reciever_off" : "Никто",
 
 	"prefix_title" : "Префикс ЕСМ сообщения",
 	"prefix_desc" : "Измените префикс сообщения ECM",

@@ -14,7 +14,6 @@
 	"erh_reciever_all" : "所有人",
 	"erh_reciever_peer" : "轮到的玩家",
 	"erh_reciever_me" : "只有我",
-	"erh_reciever_off" : "不广播",
 
 	"prefix_title" : "消息前缀(ECM)",
 	"prefix_desc" : "设置ECM消息前缀",

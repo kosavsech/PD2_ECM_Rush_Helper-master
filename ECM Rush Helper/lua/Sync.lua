@@ -59,7 +59,7 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_ECM_Rush_Helper_Sync", fun
 end)
 
 if string.lower(RequiredScript) == "lib/network/base/clientnetworksession" then
-	Hooks:PostHook(ClientNetworkSession, "on_peer_synched", "Sync_client", function(self, peer_id, ...)
+	Hooks:PostHook(ClientNetworkSession, "on_peer_synched", "ECM_Rush_Helper_Sync_client", function(self, peer_id, ...)
 		LuaNetworking:SendToPeers("ECM_Rush_Helper_Sync", "config" .. ecm_rush_helper.settings.reciever)
 		DelayedCalls:Add( "DelayedCallsMainPeerStoredCheckSync_client", 0.5, function()
 			if ecm_rush_helper.main_peer == nil then
@@ -72,7 +72,7 @@ if string.lower(RequiredScript) == "lib/network/base/clientnetworksession" then
 		end )
 	end)
 elseif string.lower(RequiredScript) == "lib/network/base/hostnetworksession" then
-	Hooks:PostHook(HostNetworkSession, "on_peer_sync_complete", "Sync_host" , function(self, peer, peer_id)
+	Hooks:PostHook(HostNetworkSession, "on_peer_sync_complete", "ECM_Rush_Helper_Sync_host" , function(self, peer, peer_id)
 		LuaNetworking:SendToPeers("ECM_Rush_Helper_Sync", "config" .. ecm_rush_helper.settings.reciever)
 		DelayedCalls:Add( "DelayedCallsMainPeerStoredCheckSync_host", 0.5, function()
 			if ecm_rush_helper.main_peer == nil then
