@@ -1,4 +1,4 @@
-local cfg_num, peer, main_peer
+local cfg_num, peer
 ecm_rush_helper.main_peer = nil
 local function main_peer_choose()
 	local candidates = {
@@ -20,7 +20,7 @@ local function main_peer_choose()
 			break
 		end
 	end
-	if ecm_rush_helper.main_peer == nil then
+	if ecm_rush_helper.main_peer == nil and managers.network:session() then
 		ecm_rush_helper.main_peer = managers.network:session():local_peer()
 	end
 end
